@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Variant_8
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 class1 = new Class1();
+            Console.WriteLine("Введите размерность массива:");
+            string s = Console.ReadLine();
+            int n;
+            bool isNumeric = int.TryParse(s, out n);
+            if (isNumeric==true) 
+            {
+                class1.init_array(n);                
+            }
+            else if(isNumeric==false)
+            {
+                Console.WriteLine("Введено неверное значение!");
+            }
+                     
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Variant_8
+{
+    internal class Class1
+    {
+        public void init_array(int n)
+        {
+            int[] arr = new int[n];                    
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write("Введите значение элемента массива: ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            int sum=min_sum(arr, n);
+            Console.WriteLine("Сумма от первого отрицательного элемента массива до последнего: " +sum);
+            
+        }
+        public int min_sum(int[] arr,int n)
+        {
+            int sum = 0;
+            int firstot = 0;
+            int secondot = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] < 0)
+                {
+                    firstot = i;
+                    break;
+                }
+            }
+
+            for (int i = n - 1; i > 0; i--)
+            {
+                if (arr[i] < 0)
+                {
+                    secondot = i;
+                    break;
+                }
+            }
+            for (int i = firstot +1; i < secondot; i++)
+            {
+                sum = sum + arr[i];
+            }
+            return sum;
+        }
+    }
+}
